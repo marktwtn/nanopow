@@ -4,6 +4,7 @@ import (
 	"encoding/binary"
 	"runtime"
 	"sync"
+	"fmt"
 )
 
 type Context struct {
@@ -111,7 +112,9 @@ func newDefaultPool() (p *Pool) {
 	gpu, gpuErr := NewWorkerGPU()
 	if gpuErr == nil {
 		p.Workers = append(p.Workers, gpu)
-	}
+	} else {
+          fmt.Println("GPU fail")
+        }
 
 	threads := runtime.NumCPU()
 	if gpuErr == nil {

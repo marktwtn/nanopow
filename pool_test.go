@@ -1,23 +1,44 @@
 package nanopow
 
 import (
+	"bufio"
+	"fmt"
+	"log"
 	"math/rand"
+	"os"
 	"testing"
+	"time"
 )
 
 func TestGenerateWork(t *testing.T) {
-	rand.Seed(1) // To make always test the same
-
-	hash, difficulty := make([]byte, 32), CalculateDifficulty(8)
-	rand.Read(hash)
-
-	w, err := GenerateWork(hash, difficulty)
+	file, err := os.Open("hash")
 	if err != nil {
-		t.Error(err)
+		fmt.Println("error")
 	}
 
-	if IsValid(hash, difficulty, w) == false {
-		t.Error("create invalid work")
+	scanner := bufio.NewScanner(file)
+	for scanner.Scan() {
+		fmt.Println(scanner.Text())
+		//hash, difficulty := make([]byte, 32), CalculateDifficulty(8)
+		//rand.Read(hash)
+		difficulty := CalculateDifficulty(8)
+		hash := []byte(scanner.Text())
+		fmt.Println("difficulty: ", difficulty)
+		fmt.Println("hash: ", string(hash))
+
+		// Start
+		start := time.Now()
+		w, err := GenerateWork(hash, difficulty)
+		if err != nil {
+			t.Error(err)
+		}
+
+		if IsValid(hash, difficulty, w) == false {
+			t.Error("create invalid work")
+		}
+		// End
+		elapsed := time.Since(start)
+		log.Printf("Time: %s", elapsed)
 	}
 
 	return

@@ -3,8 +3,15 @@ module github.com/inkeliz/nanopow
 go 1.14
 
 require (
-	github.com/Inkeliz/go-opencl v0.0.0-20200513154410-b275e70a49ac
-	github.com/stretchr/testify v1.6.0 // indirect
-	golang.org/x/crypto v0.0.0-20200510223506-06a226fb4e37
-	golang.org/x/exp/errors v0.0.0-20200513190911-00229845015e
+	github.com/Inkeliz/go-opencl v0.0.0-20200806180703-5f0707fba006
+	github.com/davecgh/go-spew v1.1.1 // indirect
+	github.com/kr/text v0.2.0 // indirect
+	github.com/marktwtn/go-opencl v0.0.0-20201117215959-c8c48b580dc9
+	github.com/niemeyer/pretty v0.0.0-20200227124842-a10e7caefd8e // indirect
+	github.com/stretchr/testify v1.6.1 // indirect
+	golang.org/x/crypto v0.0.0-20201117144127-c1f2f97bffc9
+	golang.org/x/exp/errors v0.0.0-20201008143054-e3b2a7f2fdc7
+	golang.org/x/sys v0.0.0-20201117170446-d9b008d0a637 // indirect
+	gopkg.in/check.v1 v1.0.0-20200902074654-038fdea0a05b // indirect
+	gopkg.in/yaml.v3 v3.0.0-20200615113413-eeeca48fe776 // indirect
 )

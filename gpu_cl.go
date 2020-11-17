@@ -3,8 +3,9 @@
 package nanopow
 
 import (
-	"github.com/Inkeliz/go-opencl/opencl"
+	"github.com/marktwtn/go-opencl/opencl"
 	"unsafe"
+	"fmt"
 )
 
 type clBuffer struct {
@@ -35,6 +36,7 @@ func NewWorkerGPU() (*clWorker, error) {
 func NewWorkerGPUThread(thread uint64) (*clWorker, error) {
 	device, err := getDevice()
 	if err != nil {
+                fmt.Println("get device error")
 		return nil, err
 	}
 
@@ -50,6 +52,7 @@ func NewWorkerGPUThread(thread uint64) (*clWorker, error) {
 
 	err = c.init()
 	if err != nil {
+                fmt.Println("Init error")
 		return nil, err
 	}
 
@@ -102,6 +105,7 @@ func (w *clWorker) GenerateWork(ctx *Context, root []byte, difficulty uint64) (e
 			w.queue.Finish()
 
 			if result != 0 {
+                                fmt.Println("OpenCL host result: ", result)
 				ctx.workerResult(result)
 				return nil
 			}
@@ -276,6 +280,7 @@ __kernel void nano_work (__constant ulong * attempt,
     const ulong attempt_l = *attempt + get_global_id(0);
     const ulong result = blake2b(attempt_l, vload4(0, item_a));
     if (result >= *difficulty_a) {
+        printf("OpenCL kernel result: %lu\n", attempt_l);
         *result_a = attempt_l;
         *result_hash_a = result;
     }
