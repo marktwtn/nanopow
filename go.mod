@@ -1,4 +1,4 @@
-module github.com/inkeliz/nanopow
+module github.com/marktwtn/nanopow
 
 go 1.14
 
