@@ -85,7 +85,6 @@ func (p *Pool) GenerateWork(root []byte, difficulty uint64) (w Work, err error) 
 	return ctx.Result(), nil
 }
 
-
 func GenerateWork(root []byte, difficulty uint64) (w Work, err error) {
 	defaultWorker := getDefaultWorkerPool()
 	if defaultWorker == nil || defaultWorker.Workers == nil {
@@ -123,7 +122,7 @@ func newDefaultPool() (p *Pool) {
 	}
 
 	cpu, cpuErr := NewWorkerCPUThread(uint64(threads))
-	if cpuErr == nil {
+	if cpuErr == nil && gpuErr != nil {
 		p.Workers = append(p.Workers, cpu)
 	}
 
