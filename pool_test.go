@@ -1,6 +1,7 @@
 package nanopow
 
 import (
+	"log"
 	"math/rand"
 	"testing"
 )
@@ -10,11 +11,13 @@ func TestGenerateWork(t *testing.T) {
 
 	hash, difficulty := make([]byte, 32), CalculateDifficulty(8)
 	rand.Read(hash)
+	hash = []byte("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb")
 
 	w, err := GenerateWork(hash, difficulty)
 	if err != nil {
 		t.Error(err)
 	}
+	log.Printf("PoW result: %x", w)
 
 	if IsValid(hash, difficulty, w) == false {
 		t.Error("create invalid work")
