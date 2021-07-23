@@ -110,19 +110,13 @@ func newDefaultPool() (p *Pool) {
 	gpu, gpuErr := NewWorkerGPU()
 	if gpuErr == nil {
 		p.Workers = append(p.Workers, gpu)
+		return p
 	}
 
 	threads := runtime.NumCPU()
-	if gpuErr == nil {
-		if threads >= 8 {
-			threads /= 2
-		} else {
-			return p
-		}
-	}
 
 	cpu, cpuErr := NewWorkerCPUThread(uint64(threads))
-	if cpuErr == nil && gpuErr != nil {
+	if cpuErr == nil {
 		p.Workers = append(p.Workers, cpu)
 	}
 
