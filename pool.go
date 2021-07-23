@@ -113,7 +113,7 @@ func newDefaultPool() (p *Pool) {
 		return p
 	}
 
-	threads := runtime.NumCPU()
+	threads := runtime.NumCPU() - 1
 
 	cpu, cpuErr := NewWorkerCPUThread(uint64(threads))
 	if cpuErr == nil {
